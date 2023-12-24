@@ -52,6 +52,9 @@ const Header = () => {
               <li>
                 <NavLink to='/alljobs'>All Jobs</NavLink>
               </li>
+              <li>
+                <NavLink to='/community'>Community </NavLink>
+              </li>
               {user && (
                 <>
                   <li>
@@ -62,6 +65,9 @@ const Header = () => {
                   </li>
                   <li>
                     <NavLink to='/appliedjobs'> Applied Jobs</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to='/ask'> Ask to Community </NavLink>
                   </li>
                 </>
               )}
@@ -100,6 +106,9 @@ const Header = () => {
             <li>
               <NavLink to='/alljobs'>All Jobs</NavLink>
             </li>
+            <li>
+              <NavLink to='/community'>Community </NavLink>
+            </li>
             {user && (
               <>
                 <li>
@@ -110,6 +119,9 @@ const Header = () => {
                 </li>
                 <li>
                   <NavLink to='/appliedjobs'> Applied Jobs</NavLink>
+                </li>
+                <li>
+                  <NavLink to='/ask'> Ask to Community </NavLink>
                 </li>
               </>
             )}

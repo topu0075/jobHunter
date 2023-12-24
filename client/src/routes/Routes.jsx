@@ -5,8 +5,11 @@ import axios from "axios";
 import AddJobs from "../pages/AddJob/AddJobs";
 import AllJobs from "../pages/AllJob/AllJobs";
 import AppliedJobs from "../pages/AppliedJobs/AppliedJobs";
+import AllAskQus from "../pages/Ask/AllAskQus";
+import Ask from "../pages/Ask/Ask";
 import Blog from "../pages/Blog/Blogs";
 import BlogDetails from "../pages/BlogDetails/BlogDetails";
+import Community from "../pages/Community/Community";
 import ErrorPg from "../pages/Error/ErrorPg";
 import Home from "../pages/Home/Home";
 import JobDetails from "../pages/JobDetails/JobDetails";
@@ -58,6 +61,10 @@ const router = createBrowserRouter([
           await axios.get(`${process.env.REACT_APP_URL}/blogs/${params.id}`),
       },
       {
+        path: "/community",
+        element: <Community />,
+      },
+      {
         path: "/myjobs",
         element: (
           <PrivateRoutes>
@@ -95,6 +102,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <UpdateJob />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/ask",
+        element: (
+          <PrivateRoutes>
+            <Ask />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/askDetails/:id",
+        element: (
+          <PrivateRoutes>
+            <AllAskQus />
           </PrivateRoutes>
         ),
       },

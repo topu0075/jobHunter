@@ -12,6 +12,7 @@ const pass = process.env.DB_PASSWORD;
 app.use(
   cors({
     origin: [
+      "http://localhost:5173",
       "https://jobshub-f99f6.web.app",
       "https://jobshub-f99f6.firebaseapp.com",
     ],
@@ -65,6 +66,7 @@ async function run() {
     const database = client.db("jobsHub");
     const jobsCollection = database.collection("jobs");
     const blogsCollection = database.collection("blogs");
+    const questionsCollection = database.collection("ask");
 
     // GET API
 
@@ -118,6 +120,30 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/ask", async (req, res) => {
+      const qusData = questionsCollection.find();
+      const result = await qusData.toArray();
+      res.send(result);
+    });
+
+    app.get("/ask/:email", async (req, res) => {
+      const mail = req.params.email;
+      console.log(mail);
+      const query = { user_email: mail };
+      const qusData = questionsCollection.find(query);
+      const result = await qusData.toArray();
+      res.send(result);
+    });
+
+    app.get("/askDetails/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const query = { _id: new ObjectId(id) };
+      const qusData = questionsCollection.find(query);
+      const result = await qusData.toArray();
+      res.send(result);
+    });
+
     //POST API
 
     app.post("/jwt", async (req, res) => {
@@ -156,6 +182,12 @@ async function run() {
     app.post("/blogs", async (req, res) => {
       const data = req.body;
       const result = await blogsCollection.insertOne(data);
+      res.send(result);
+    });
+
+    app.post("/ask", async (req, res) => {
+      const data = req.body;
+      const result = await questionsCollection.insertOne(data);
       res.send(result);
     });
 
@@ -205,6 +237,25 @@ async function run() {
       const result = await jobsCollection.updateOne(
         query,
         addApplicant,
+        insertOptional
+      );
+      res.send(result);
+    });
+
+    app.put("/askDetails/:id", async (req, res) => {
+      const id = req.params.id;
+      const answer = req.body.answer;
+      console.log(answer);
+      const query = { _id: new ObjectId(id) };
+      const insertOptional = { upsert: true };
+      const addAnswer = {
+        $push: {
+          answers: answer,
+        },
+      };
+      const result = await questionsCollection.updateOne(
+        query,
+        addAnswer,
         insertOptional
       );
       res.send(result);

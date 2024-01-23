@@ -12,9 +12,7 @@ const pass = process.env.DB_PASSWORD;
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
-      "https://jobshub-f99f6.web.app",
-      "https://jobshub-f99f6.firebaseapp.com",
+      "https://jobhunter-rahmantopu67.netlify.app",
     ],
     credentials: true,
   })
